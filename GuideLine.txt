@@ -1,0 +1,28 @@
+# Step1: Deploy a ec2-instance on cloud (AWS)
+# Step2: Now we need to install php, httpd and mysql software inside ec2-instance, but AWS comes with old php version i.e. 5
+	 If we need to install latest php version i.e 7
+         command: { amazon-linux-extras enable php7.4 }
+# Step3: Now just visit WORDPRESS official website. Copy the url of { https://wordpress.org/latest.tar.gz }
+# Step4: Move inside /var/www/html and type { wget https://wordpress.org/latest.tar.gz }
+# Step5: Now to untar the tar file we use { tar -xvf file_name }
+# step6: Now create a database using RDS service provided by AWS
+# step7: Assign a name, password, and allow public ip inside the RDS service. Also don't forget to create a database
+# Step8: Create a wp-config.php file inside wordpress folder which is inside /var/www/html 
+	 How to create wp-config.php file
+	 Just clone wp-config-sample.php using command { cp   wp-config-sample.php       wp-config.php }
+# step9: Replace name, password, database_name inside wp-config.php file with database name, password, databse_name.
+	 There is one more field called DB_HOST in which we have to write the database DNS url provided by AWS.
+		Before						After
+
+	 define( 'DB_NAME', 'database_name_here' );   |	define( 'DB_NAME', 'test' );
+	 /** MySQL database username */               |	/** MySQL database username */
+	 define( 'DB_USER', 'username_here' );        |	define( 'DB_USER', 'ashish' );
+	 /** MySQL database password */               |	/** MySQL database password */ 
+	 define( 'DB_PASSWORD', 'password_here' );    |	define( 'DB_PASSWORD', 'redhat00' );
+	 /** MySQL hostname */                        |	/** MySQL hostname */
+	 define( 'DB_HOST', 'localhost' );            |	define( 'DB_HOST', 'database.sdv.ap-south-1.rds.amazonaws.com' );
+# step10: start the httpd service
+	  command { systemctl start httpd }
+	 
+
+
